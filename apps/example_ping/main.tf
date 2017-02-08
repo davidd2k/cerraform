@@ -1,7 +1,7 @@
 module "circonus" {
   source = "modules/circonus"
 
-  account_name = "${var.circonus-account-name}"
+  account_name = "${var.circonus_account_name}"
   /*alert_slack_channel_name = "${var.slack-channel}"
   alert_slack_escalate_channel_name = "${var.slack-escalate-channel}"
   alert_slack_team_id = "${var.slack-team-id}"*/

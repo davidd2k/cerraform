@@ -14,15 +14,15 @@ resource "circonus_check" "icmp_ping" {
 
   name       = "ICMP Latency from Public (Ashburn, VA) Collector"
   notes      = <<EOF
-This check measures the network latency between Vynjo's Enterprise Collector(s) and
-www.vynjo.com.
+This check measures the network latency between a Public Collector(s) and
+www.google.com.
 EOF
 
   icmp_ping {
     count = 1
   }
 
-  target = "www.vynjo.com"
+  target = "www.google.com"
 
   period = "60s"
 
@@ -54,7 +54,7 @@ EOF
     tags = ["${circonus_metric.icmp_count.tags}"]
     type = "${circonus_metric.icmp_count.type}"
     unit = "${circonus_metric.icmp_count.unit}"
-    active = false
+    active = true
   }
   stream {
     name = "${circonus_metric.icmp_maximum.name}"
@@ -106,6 +106,7 @@ resource "circonus_metric" "icmp_minimum" {
 resource "circonus_metric" "icmp_available" {
   name = "available"
   type = "numeric"
+  unit = "null"
   tags = [ "${var.latency_tags}" ]
 }
 resource "circonus_metric" "icmp_average" {
@@ -117,6 +118,7 @@ resource "circonus_metric" "icmp_average" {
 resource "circonus_metric" "icmp_count" {
   name = "count"
   type = "numeric"
+  unit = "null"
   tags = [ "${var.latency_tags}" ]
 }
 resource "circonus_metric" "icmp_maximum" {
@@ -127,8 +129,8 @@ resource "circonus_metric" "icmp_maximum" {
 }
 
 resource "circonus_graph" "icmp_ping" {
-  name = "Test 2 www.vynjo.com Ping Latency from Ashburn, VA Broker"
-  description = "The minimum ping time between Vynjo's home broker and www.vynjo.com"
+  name = "Ping Latency to www.google.com from Ashburn, VA Broker"
+  description = "The minimum and maximum ping time between google.com and Ashburn, VA Broker"
   line_style = "stepped"
 
   stream {
@@ -151,10 +153,10 @@ resource "circonus_graph" "icmp_ping" {
   tags = [ "${var.latency_tags}" ]
 }
 
-resource "circonus_graph" "icmp_ping" {
   /* NOTE TO SELF - MAKE VARS AND INPUT PERAMETERS FOR THE MODULE!!!!! */
-  name = "Test 1 www.vynjo.com Ping Roundtrip from Ashburn, VA Broker"
-  description = "The round trip ping time between Vynjo's home broker and www.vynjo.com"
+resource "circonus_graph" "icmp_ping_average" {
+  name = "Ping Roundtrip to www.google.com from Ashburn, VA Broker"
+  description = "The round trip ping time between google.com and Ashburn, VA Broker"
   line_style = "stepped"
 
   stream {
