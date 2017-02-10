@@ -11,9 +11,7 @@ data "circonus_collector" "httptrap" {
 }
 
 // Circonus Enterprise Brokers
-/*
 
-data "circonus_collector" "YOUR_BROKER_HERE" {
-  id = "/broker/ID_FROM_API_OBJECT"
+data "circonus_collector" "noit01" {
+  id = "/broker/1095"
 }
-*/

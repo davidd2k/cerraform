@@ -1,12 +1,20 @@
+variable "dbhost" {
+
+}
+
+variable "dsn" {
+
+}
+
 variable "account_name" {
   description = "The name of the Circonus Account to use"
 }
 
 variable "api_token" {}
 
-/*variable "collectors_enterprise" {
+variable "collectors_enterprise" {
   type = "list"
-}*/
+}
 
 variable "collectors_public" {
   type = "list"

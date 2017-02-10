@@ -7,73 +7,57 @@ variable "mysql_tags" {
   ]
 }
 
-resource "circonus_check" "icmp_latency" {
+resource "circonus_check" "mysql" {
   collector {
     id = "${var.collectors_enterprise[0]}"
   }
 
-  name       = "ICMP Latency from Enterprise Collector"
+  name       = "MySQL GLOBAL STATUS"
   notes      = <<EOF
-This check measures the network latency between Vynjo's Enterprise Collector(s) and
-www.vynjo.com.
+This check shows results from the mysql SHOW GLOBAL STATUS command
 EOF
 
-  icmp_ping {
-    count = 1
-  }
+  target = "${var.dbhost}"
 
-  target = "www.vynjo.com"
+  period = "30s"
 
-  period = "60s"
-
-  stream {
-    name = "${circonus_metric.icmp_latency.name}"
-    tags = ["${circonus_metric.icmp_latency.tags}"]
-    type = "${circonus_metric.icmp_latency.type}"
-    unit = "${circonus_metric.icmp_latency.unit}"
-  }
-
-  tags = [ "${var.latency_tags}" ]
+  mysql {
+    dsn = "${var.dsn}"
+    query = <<EOF
+  SHOW GLOBAL STATUS;
+EOF
 }
-/*
-Uncomment this section if you want to have a check to/from your Enterprise Broker
-resource "circonus_check" "icmp_latency" {
-  collector {
-    id = "${var.collectors_enterprise[0]}"
+  stream {
+    name = "${circonus_metric.threads_running.name}"
+    tags = ["${circonus_metric.threads_running.tags}"]
+    type = "${circonus_metric.threads_running.type}"
+    unit = "${circonus_metric.threads_running.unit}"
   }
-
-  name       = "ICMP Latency from Enterprise Collector"
-  notes      = <<EOF
-This check measures the network latency between ENTERPRISE_BROKER_NAME Enterprise Collector(s) and
-www.vynjo.com.
-EOF
-
-  icmp_ping {
-    count = 1
-  }
-
-  target = "www.vynjo.com"
-
-  period = "60s"
 
   stream {
-    name = "${circonus_metric.icmp_latency.name}"
-    tags = ["${circonus_metric.icmp_latency.tags}"]
-    type = "${circonus_metric.icmp_latency.type}"
-    unit = "${circonus_metric.icmp_latency.unit}"
+    name = "${circonus_metric.bytes_sent.name}"
+    tags = ["${circonus_metric.bytes_sent.tags}"]
+    type = "${circonus_metric.bytes_sent.type}"
+    unit = "${circonus_metric.bytes_sent.unit}"
   }
 
-  tags = [ "${var.latency_tags}" ]
-}*/
+  tags = [ "${var.mysql_tags}" ]
+}
 
-resource "circonus_metric" "icmp_latency" {
-  name = "minimum"
+resource "circonus_metric" "bytes_sent" {
+  name = "Bytes_sent`Value"
   type = "numeric"
-  unit = "seconds"
-  tags = [ "${var.latency_tags}" ]
+  unit = "null"
+  tags = [ "${var.mysql_tags}" ]
 }
 
-resource "circonus_graph" "icmp_minimum" {
+resource "circonus_metric" "threads_running" {
+  name = "Threads_running`Value"
+  type = "numeric"
+  unit = "null"
+  tags = [ "${var.mysql_tags}" ]
+}
+/*resource "circonus_graph" "icmp_minimum" {
   name = "www.vynjo.com Ping Latency from Ashburn, VA Broker"
   description = "The minimum ping time between Vynjo's home broker and www.vynjo.com"
   line_style = "stepped"
@@ -88,4 +72,4 @@ resource "circonus_graph" "icmp_minimum" {
   }
 
   tags = [ "${var.latency_tags}" ]
-}
+}*/

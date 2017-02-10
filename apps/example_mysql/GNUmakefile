@@ -31,7 +31,7 @@ fmt::
 	terraform fmt .
 
 destroy::
-	# terraform destroy -force
+	terraform destroy -force
 
 clean:: destroy
-	# rm -f ${TFPLAN} ${TFSTATE} crash.log
+	rm -f ${TFPLAN} ${TFSTATE} crash.log

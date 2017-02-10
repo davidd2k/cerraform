@@ -1,5 +1,7 @@
-
-variable "circonus-account-name" {
+/* These can be overridden with the appropriate environment variable:
+ - TF_VAR_circonus_account_name=vynjo as an example
+*/
+variable "circonus_account_name" {
   description = "The name of the Circonus Account"
 }
 
@@ -10,16 +12,6 @@ variable "circonus_api_url" {
 variable "circonus_api_token" {
 }
 
-
-/*
-variable "slack-channel" { }
-
-variable "slack-escalate-channel" { }
-
-variable "slack-team-id" { }
-
-*/
-
 variable "dbuser" {
   default = "root"
 }
@@ -29,7 +21,7 @@ variable "dbpassword" {
 }
 
 variable "dbhost" {
-  default = "172.16.0.220"
+  default = "YOUR_DB_HOST_IP"
 }
 
 variable "dbport" {

@@ -6,7 +6,7 @@ module "circonus" {
   alert_slack_escalate_channel_name = "${var.slack-escalate-channel}"
   alert_slack_team_id = "${var.slack-team-id}"*/
   api_token  = "${var.circonus_api_token}"
-  /*
+  /* 
   collectors_enterprise = ["${data.circonus_collector.YOUR_BROKER_NAME_HERE.id}"]
   */
   collectors_public = ["${data.circonus_collector.ashburn.id}", "${data.circonus_collector.chicago.id}"]

@@ -10,7 +10,6 @@ variable "circonus_api_url" {
 variable "circonus_api_token" {
 }
 
-
 /*
 variable "slack-channel" { }
 
