@@ -1,5 +1,0 @@
-.circonus.tfplan
-.circonus.tfvars
-.terraform.tfstate
-.terraform.tfstate.backup
-.terraform
