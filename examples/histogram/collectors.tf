@@ -2,8 +2,8 @@
 
 ### Broker ID is found on the broker page by viewing the broker API object (the cid),
 ### so you will need to change 2512 to an enterprise broker in  your account.
-data "circonus_collector" "home_broker" {
-  id = "/broker/2512"
+data "circonus_collector" "YOUR_BROKER_HERE" {
+  id = "/broker/ID_HERE"
 }
 
 // Circonus Public Collectors (aka Brokers)

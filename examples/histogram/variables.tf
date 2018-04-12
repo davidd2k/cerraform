@@ -1,17 +1,17 @@
 
-### replace vynjo with your account name.
+### replace YOUR_ACCOUNT_NAME_HERE with your account name.
 variable "account_name" {
   description = "The name of the Circonus Account to use"
-  default = "Vynjo"
+  default = "YOUR_ACCOUNT_NAME_HERE"
 }
 variable "circonus_account_name" {
   description = "The name of the Circonus Account"
-  default = "vynjo"
+  default = "YOUR_ACCOUNT_NAME_HERE"
 }
 
 ### Replace with your API Token, either account level or user level tokens work.
 variable "circonus_api_token" {
-  default = "9598206a-25fb-c279-f37d-asdfasdfadsf"
+  default = "YOUR_API_KEY_HERE"
 }
 
 variable "circonus_api_url" {
@@ -19,7 +19,7 @@ variable "circonus_api_url" {
 }
 
 variable "check_name" {
-     default = "ICMP_Ping"
+     default = "CAQL"
 }
 
 variable "environment" {
@@ -29,7 +29,7 @@ variable "environment" {
 }
 
 variable "check_notes" {
-  default = "A check to ping times."
+  default = "A check to Test Histograms."
 }
 
 variable "target" {
@@ -40,7 +40,7 @@ variable "target" {
 ### \"team\":\"T7E3X6R0S\", replacing T7E3X6R0S with your team id
 variable "alert_slack_team_id" {
   description = "The ID of the Slack Team"
-  default = "T7E3X6R0S"
+  default = "YOUR_SLACK_ID_HERE"
 }
 
 ### Change circonus-alerts to the channel, in your team, where you want alerts to show up
@@ -62,7 +62,7 @@ provider "circonus" {
   api_url = "${var.circonus_api_url}"
 }
 
-variable "ping_tags" {
+variable "test_tags" {
   type = "list"
   default = [
     "app:circonus",
@@ -70,14 +70,3 @@ variable "ping_tags" {
     "resource:network",
   ]
 }
-
-variable "ping_target" {
-  default = "www.google.com"
-}
-# variable "collectors_enterprise" {
-#   default = "${data.circonus_collector.home_broker.id}"
-# }
-#
-# variable "collectors_public" {
-#    default = ["${data.circonus_collector.ashburn.id}", "${data.circonus_collector.chicago.id}"]
-# }
