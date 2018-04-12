@@ -4,7 +4,7 @@
 */
 
 resource "circonus_check" "histogramtest" {
-  name = "Test of All Metrics into Histogram (Merged Histogram)"
+  name = "Test of All CPU Metrics into Histogram (Merged Histogram)"
   period = "60s"
 
   collector {
@@ -13,7 +13,7 @@ resource "circonus_check" "histogramtest" {
 
   caql {
     query = <<EOF
-search:metric("(active:1)") | histogram:create()
+search:metric("*cpu*(active:1)") | histogram:create()
 EOF
   }
 
@@ -27,8 +27,8 @@ EOF
 }
 
 resource "circonus_graph" "histogramtest" {
-  name = "Test of All Metrics into Histogram (Merged Histogram)"
-  description = "Test of All Metrics into Histogram"
+  name = "Test of All CPU Metrics into Histogram (Merged Histogram)"
+  description = "Test of All CPU Metrics into Histogram"
   line_style = "stepped"
 
   metric {
@@ -37,6 +37,6 @@ resource "circonus_graph" "histogramtest" {
     metric_type = "histogram"
     axis = "left"
     color = "#657aa6"
-    name = "Test of All Metrics into Histogram"
+    name = "Test of All CPU Metrics into Histogram"
   }
 }
